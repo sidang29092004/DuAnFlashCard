@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Website Flashcard
 
 Project co 2 phan:
@@ -173,3 +174,6 @@ Frontend dung helper `getImageUrl()` de ghep URL API, khong hard-code link anh.
 ## Luu y
 
 Neu user cu trong DB dang co password plain-text, backend se migrate sang bcrypt o lan login dau tien neu password khop.
+=======
+# DuAnFlashCard
+>>>>>>> e97277513bfc775be253e252d939e04df145b706
