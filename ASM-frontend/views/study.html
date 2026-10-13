@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Flashcard | Flashcard Language</title>
+    <meta name="description" content="Học Flashcard với phương pháp Spaced Repetition.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/study.css">
+</head>
+<body>
+    <header>
+        <a href="detailFlashcard.html" class="logo" style="font-size:1rem;">
+            <i class="fa-solid fa-arrow-left" style="font-size:1rem;"></i>
+            Tiếng Anh - Công nghệ
+        </a>
+        <div class="study-progress-wrap" style="flex-grow:1; max-width:400px; margin:0 20px;">
+            <div class="study-progress-labels">
+                <span id="progressLabel">0 / 12</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="study-progress-bar">
+                <div class="study-progress-fill" id="progressFill" style="width:0%;"></div>
+            </div>
+        </div>
+        <button onclick="window.location.href='detailFlashcard.html'" class="cat-btn" style="padding:8px 16px;">
+            <i class="fa-solid fa-xmark"></i> Thoát
+        </button>
+    </header>
+
+    <div class="study-layout">
+        <div class="study-main" id="studyMain">
+            <div class="flip-hint">
+                <i class="fa-regular fa-hand-pointer"></i>
+                Nhấp vào thẻ hoặc nhấn <kbd style="background:var(--search-bg);padding:2px 8px;border-radius:4px;font-family:inherit;">Space</kbd> để lật thẻ
+            </div>
+
+            <div class="study-card-wrapper" id="studyCard" onclick="flipCard()">
+                <div class="study-card-inner">
+                    <div class="study-card-face study-card-front">
+                        <span class="study-card-hint"><i class="fa-solid fa-rotate"></i> Nhấp để lật</span>
+                        <div class="study-card-label">Thuật ngữ</div>
+                        <div class="study-card-text" id="cardFrontText">Artificial Intelligence</div>
+                        <button class="study-speech-btn" id="btnStudySpeak" type="button" aria-label="Nghe phát âm" title="Nghe phát âm">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <div class="study-card-face study-card-back">
+                        <span class="study-card-hint"><i class="fa-solid fa-rotate"></i> Nhấp để lật lại</span>
+                        <div class="study-card-label">Định nghĩa</div>
+                        <div class="study-card-text" id="cardBackText">Trí tuệ nhân tạo</div>
+                        <div class="study-card-sub" id="cardSubText">The simulation of human intelligence processes by machines</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-show-answer" id="btnShowAnswer" onclick="flipCard()">
+                <i class="fa-solid fa-eye"></i> Xem đáp án
+            </button>
+
+            <div class="rating-section" id="ratingSection">
+                <div class="rating-label">Bạn nhớ thẻ này như thế nào?</div>
+                <div class="rating-buttons">
+                    <button class="rating-btn again" onclick="rateCard('again')">
+                        <span class="rating-icon">😰</span>
+                        <span class="rating-name">Quên</span>
+                        <span class="rating-desc">Học lại ngay</span>
+                    </button>
+                    <button class="rating-btn hard" onclick="rateCard('hard')">
+                        <span class="rating-icon">😓</span>
+                        <span class="rating-name">Khó</span>
+                        <span class="rating-desc">Cần ôn thêm</span>
+                    </button>
+                    <button class="rating-btn good" onclick="rateCard('good')">
+                        <span class="rating-icon">🙂</span>
+                        <span class="rating-name">Bình thường</span>
+                        <span class="rating-desc">Nhớ được</span>
+                    </button>
+                    <button class="rating-btn easy" onclick="rateCard('easy')">
+                        <span class="rating-icon">😄</span>
+                        <span class="rating-name">Dễ</span>
+                        <span class="rating-desc">Thuộc lòng</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="finish-screen" id="finishScreen" style="margin:0 auto;">
+            <div class="finish-icon">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h2>Hoàn thành! 🎉</h2>
+            <p>Bạn đã học xong bộ thẻ này. Đây là kết quả của bạn:</p>
+            <div class="finish-stats">
+                <div class="finish-stat again-stat">
+                    <div class="finish-stat-value" id="statAgain">0</div>
+                    <div class="finish-stat-label">Quên</div>
+                </div>
+                <div class="finish-stat hard-stat">
+                    <div class="finish-stat-value" id="statHard">0</div>
+                    <div class="finish-stat-label">Khó</div>
+                </div>
+                <div class="finish-stat good-stat">
+                    <div class="finish-stat-value" id="statGood">0</div>
+                    <div class="finish-stat-label">Bình thường</div>
+                </div>
+                <div class="finish-stat easy-stat">
+                    <div class="finish-stat-value" id="statEasy">0</div>
+                    <div class="finish-stat-label">Dễ</div>
+                </div>
+            </div>
+            <div class="finish-actions">
+                <button class="cat-btn" onclick="restartStudy()" style="padding:12px 24px;">
+                    <i class="fa-solid fa-rotate-right"></i> Học lại
+                </button>
+                <button class="blue-btn" onclick="window.location.href='detailFlashcard.html'" style="border-radius:20px; padding:12px 24px; width:auto; font-weight:600;">
+                    <i class="fa-solid fa-arrow-right"></i> Xem bộ thẻ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/js/app.js"></script>
+</body>
+</html>

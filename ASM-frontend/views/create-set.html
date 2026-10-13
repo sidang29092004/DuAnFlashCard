@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo bộ thẻ | Flashcard Language</title>
+    <meta name="description" content="Tạo bộ Flashcard mới, thêm thẻ và quản lý nội dung học tập.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/create-set.css">
+</head>
+<body>
+    <header>
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-layer-group"></i>
+            Flashcard Language
+        </a>
+        <div class="header-actions">
+            <a href="account.html" style="color:var(--text-muted); text-decoration:none; font-size:0.9rem;">
+                <i class="fa-solid fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+    </header>
+
+    <main class="create-set-container" style="padding-bottom: 100px;">
+        <div class="create-form-section">
+            <div class="form-border-left"></div>
+            <div class="form-content">
+                <input type="text" class="input-title" id="setTitle" placeholder="Đặt tên cho bộ thẻ...">
+
+                <div class="input-group-create">
+                    <label>Mô tả</label>
+                    <textarea class="input-desc" id="setDesc" placeholder="Mô tả trọng tâm của bộ học này..." rows="3"></textarea>
+                </div>
+
+                <div class="dropdowns-row">
+                    <div class="input-group-create">
+                        <label>Ngôn ngữ mặt trước</label>
+                        <div class="select-wrapper">
+                            <select class="custom-select" id="frontLang">
+                                <option value="en">English</option>
+                                <option value="vi">Tiếng Việt</option>
+                                <option value="de">Deutsch</option>
+                                <option value="fr">Français</option>
+                                <option value="ja">日本語</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-group-create">
+                        <label>Ngôn ngữ mặt sau</label>
+                        <div class="select-wrapper">
+                            <select class="custom-select" id="backLang">
+                                <option value="vi">Tiếng Việt</option>
+                                <option value="en">English</option>
+                                <option value="de">Deutsch</option>
+                                <option value="fr">Français</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-group-create">
+                        <label>Tag</label>
+                        <div class="select-wrapper">
+                            <select class="custom-select" id="setTag">
+                                <option value="">Không có tag</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-toggle-row">
+            <i class="fa-solid fa-earth-asia" style="color:var(--primary-blue);font-size:1.2rem;"></i>
+            <div style="flex-grow:1;">
+                <div class="status-label">Công khai bộ thẻ</div>
+                <div style="font-size:0.8rem;color:var(--text-muted);">Bộ thẻ sẽ được gửi cho Admin duyệt trước khi xuất hiện công khai.</div>
+            </div>
+            <span class="status-badge-inline private" id="statusBadge">Riêng tư</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="publicToggle">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+
+        <div class="public-options" id="publicOptions">
+            <h3><i class="fa-solid fa-circle-info" style="color:var(--primary-blue);"></i> Thông tin công khai</h3>
+            <div class="public-options-grid">
+                <div class="input-group-create">
+                    <label>Chủ đề <span style="color:#ef4444;">*</span></label>
+                    <div class="select-wrapper">
+                        <select class="custom-select" id="setTopic">
+                            <option value="">Chọn chủ đề...</option>
+                            <option value="ngon-ngu">Ngôn ngữ</option>
+                            <option value="khoa-hoc">Khoa học</option>
+                            <option value="cong-nghe">Công nghệ</option>
+                            <option value="lich-su">Lịch sử</option>
+                            <option value="toan-hoc">Toán học</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+                <div class="input-group-create">
+                    <label>Cấp độ <span style="color:#ef4444;">*</span></label>
+                    <div class="select-wrapper">
+                        <select class="custom-select" id="setLevel">
+                            <option value="">Chọn cấp độ...</option>
+                            <option value="co-ban">Cơ bản</option>
+                            <option value="trung-cap">Trung cấp</option>
+                            <option value="nang-cao">Nâng cao</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+                <div class="input-group-create">
+                    <label>Ngôn ngữ chính <span style="color:#ef4444;">*</span></label>
+                    <div class="select-wrapper">
+                        <select class="custom-select" id="setMainLang">
+                            <option value="">Chọn ngôn ngữ...</option>
+                            <option value="vi">Tiếng Việt</option>
+                            <option value="en">English</option>
+                            <option value="de">Deutsch</option>
+                            <option value="fr">Français</option>
+                            <option value="ja">日本語</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="create-divider">
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="font-size:1.2rem; color:var(--text-main);">
+                <i class="fa-solid fa-layer-group" style="color:var(--primary-blue);"></i>
+                Danh sách thẻ <span id="cardCount" style="color:var(--text-muted); font-weight:400;">(0 thẻ)</span>
+            </h3>
+        </div>
+
+        <div class="card-editor-list" id="cardEditorList"></div>
+
+        <div class="empty-state-section" id="emptyCardState">
+            <div class="empty-icon-wrapper">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <h3>Bộ thẻ của bạn trống</h3>
+            <p>Thêm thẻ đầu tiên để bắt đầu học.</p>
+        </div>
+
+        <div class="card-action-toolbar">
+            <button class="btn-add-card-inline" id="btnAddCard" type="button">
+                <i class="fa-solid fa-plus"></i> Thêm thẻ
+            </button>
+            <button class="card-tool-btn" id="btnImportExcel" type="button">
+                <i class="fa-solid fa-file-excel"></i> Import Excel
+            </button>
+            <button class="card-tool-btn primary" id="btnOpenVocabularyAssistant" type="button">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Trợ lý AI
+            </button>
+            <input type="file" id="excelImportInput" accept=".xlsx,.xls" hidden>
+        </div>
+    </main>
+
+    <div class="modal excel-preview-modal" id="excelPreviewModal">
+        <div class="modal-content excel-preview-content">
+            <div class="modal-header">
+                <div>
+                    <h2>Import Excel</h2>
+                    <p class="modal-subtitle" id="excelPreviewSummary">Chưa có dữ liệu.</p>
+                </div>
+                <button class="close-btn" id="btnCloseExcelPreview" type="button">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="excel-preview-errors" id="excelPreviewErrors"></div>
+                <div class="excel-preview-table-wrapper">
+                    <table class="excel-preview-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Front</th>
+                                <th>Back</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="excelPreviewRows"></tbody>
+                    </table>
+                </div>
+                <div class="modal-actions">
+                    <button class="cat-btn" id="btnCancelExcelImport" type="button">Hủy</button>
+                    <button class="blue-btn" id="btnApplyExcelImport" type="button">
+                        <i class="fa-solid fa-file-import"></i> Nhập vào bộ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="assistant-backdrop" id="assistantBackdrop"></div>
+    <aside class="assistant-drawer" id="vocabularyAssistantDrawer" aria-hidden="true">
+        <div class="assistant-drawer-header">
+            <div>
+                <h2>Trợ lý từ vựng</h2>
+                <p>Tạo card gợi ý, sau đó chọn để thêm vào bộ hiện tại.</p>
+            </div>
+            <button class="close-btn" id="btnCloseVocabularyAssistant" type="button">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="assistant-chat" id="assistantChatLog"></div>
+        <div class="assistant-preview" id="assistantCardsPreview"></div>
+        <div class="assistant-input-area">
+            <textarea id="assistantMessage" rows="3" placeholder="Ví dụ: Tạo 10 từ tiếng Anh chủ đề lập trình"></textarea>
+            <div class="assistant-input-actions">
+                <button class="cat-btn" id="btnAddAssistantCards" type="button" disabled>
+                    <i class="fa-solid fa-plus"></i> Thêm vào bộ
+                </button>
+                <button class="blue-btn" id="btnSendAssistant" type="button">
+                    <i class="fa-solid fa-paper-plane"></i> Gửi
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <div class="create-save-bar">
+        <div class="save-bar-info">
+            <span id="saveBarCardCount">0 thẻ</span>
+        </div>
+        <div class="save-bar-actions">
+            <button class="cat-btn" onclick="window.location.href='account.html'" style="padding:10px 20px;">Hủy</button>
+            <button class="blue-btn" id="btnSaveSet" style="border-radius:20px; padding:10px 24px; width:auto; font-weight:600;">
+                <i class="fa-solid fa-floppy-disk"></i> Lưu bộ thẻ
+            </button>
+        </div>
+    </div>
+
+    <script src="../public/js/app.js"></script>
+</body>
+</html>

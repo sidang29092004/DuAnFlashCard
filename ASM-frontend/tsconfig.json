@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./public/js",
+        "target": "ES2022",
+        "module": "ES2022",
+        "lib": ["ES2022", "DOM"],
+        "strict": true,
+        "removeComments": true,
+        "noEmit": false,
+        "noEmitOnError": true
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết bộ thẻ | Flashcard Language</title>
+    <meta name="description" content="Xem chi tiết bộ Flashcard, học và ôn luyện theo nhiều phương pháp khác nhau.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/detailFlashcard.css">
+</head>
+<body>
+    <header>
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-layer-group"></i>
+            Flashcard Language
+        </a>
+        <div class="header-actions">
+            <button class="btn-login" onclick="window.location.href='home.html'">
+                <i class="fa-solid fa-user"></i> Đăng nhập
+            </button>
+        </div>
+    </header>
+
+    <main class="detail-container">
+        <div class="set-breadcrumb">
+            <a href="home.html"><i class="fa-solid fa-house"></i> Trang chủ</a>
+            <span style="margin:0 8px;">/</span>
+            <span>Tiếng Anh - Chủ đề Công nghệ</span>
+        </div>
+
+        <div class="set-header">
+            <h1 class="set-title">Tiếng Anh - Chủ đề Công nghệ (Technology)</h1>
+            <div class="set-meta">
+                <div class="author-info">
+                    <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                    <span>Tạo bởi <strong>Admin</strong></span>
+                </div>
+                <span>|</span>
+                <span><i class="fa-solid fa-clone"></i> 12 thuật ngữ</span>
+                <span>|</span>
+                <span class="badge" style="background-color:#e0f2fe;color:#0284c7;">English</span>
+                <span class="badge nang-cao">Nâng Cao</span>
+                <span class="set-status approved"><i class="fa-solid fa-circle-check"></i> Công khai</span>
+            </div>
+        </div>
+
+        <div class="set-actions">
+            <button class="set-action-btn primary" onclick="window.location.href='study.html'">
+                <i class="fa-solid fa-graduation-cap"></i> Bắt đầu học
+            </button>
+            <button class="set-action-btn" id="btnSaveSet">
+                <i class="fa-regular fa-bookmark"></i> Lưu
+            </button>
+            <button class="set-action-btn" id="btnShareSet">
+                <i class="fa-solid fa-share-nodes"></i> Chia sẻ
+            </button>
+            <button class="set-action-btn" onclick="window.location.href='create-set.html'">
+                <i class="fa-solid fa-pen"></i> Sửa bộ thẻ
+            </button>
+        </div>
+
+        <div class="study-modes">
+            <a class="mode-btn active" href="study.html">
+                <i class="fa-solid fa-clone"></i>
+                <span>Thẻ ghi nhớ</span>
+            </a>
+            <a class="mode-btn" href="study.html">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Học</span>
+            </a>
+            <a class="mode-btn" href="study.html">
+                <i class="fa-solid fa-spell-check"></i>
+                <span>Kiểm tra</span>
+            </a>
+            <a class="mode-btn" href="study.html">
+                <i class="fa-solid fa-gamepad"></i>
+                <span>Ghép thẻ</span>
+            </a>
+        </div>
+
+        <div class="flashcard-viewer">
+            <div class="flashcard-main" id="flashcardMain" onclick="this.classList.toggle('is-flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <span class="card-side-label">Thuật ngữ</span>
+                        <span id="frontText">Artificial Intelligence</span>
+                        <span class="flashcard-hint"><i class="fa-solid fa-rotate"></i> Nhấp để lật</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <span class="card-side-label">Định nghĩa</span>
+                        <span id="backText">Trí tuệ nhân tạo</span>
+                        <span class="flashcard-hint"><i class="fa-solid fa-rotate"></i> Nhấp để lật lại</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-controls">
+                <button class="control-btn" id="prevBtn" title="Thẻ trước"><i class="fa-solid fa-arrow-left"></i></button>
+                <span class="card-counter" id="cardCounter">1 / 12</span>
+                <button class="control-btn" id="nextBtn" title="Thẻ tiếp theo"><i class="fa-solid fa-arrow-right"></i></button>
+                <button class="control-btn" onclick="window.location.href='study.html'" style="margin-left:15px; font-size:1.2rem;" title="Học ngay">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </button>
+                <button class="control-btn" title="Mở rộng" id="expandBtn"><i class="fa-solid fa-expand"></i></button>
+            </div>
+        </div>
+
+        <div class="term-list-section">
+            <div class="term-list-header">
+                <h3>Thuật ngữ trong bộ thẻ này (12)</h3>
+                <button class="control-btn" title="Sắp xếp" style="font-size:1rem;"><i class="fa-solid fa-sort"></i></button>
+            </div>
+            <div class="term-list" id="termList"></div>
+        </div>
+    </main>
+
+    <div id="shareModal" class="modal">
+        <div class="modal-content" style="max-width:480px; padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color); padding-bottom:15px; margin-bottom:20px;">
+                <h2 style="font-size:1.2rem;">Chia sẻ bộ thẻ</h2>
+                <button class="close-btn" id="closeShareModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="gap:15px;">
+                <p style="font-size:0.9rem; color:var(--text-muted);">Chia sẻ link bộ thẻ này với bạn bè:</p>
+                <div class="share-link-box">
+                    <span id="shareLink">https://flashcard.app/sets/tieng-anh-cong-nghe</span>
+                    <button class="cat-btn" id="copyLinkBtn" style="padding:6px 12px; white-space:nowrap;">
+                        <i class="fa-regular fa-copy"></i> Sao chép
+                    </button>
+                </div>
+                <div style="display:flex; gap:10px; padding-top:5px;">
+                    <button class="blue-btn" style="border-radius:20px; padding:10px 20px; width:auto; flex:1;" onclick="shareToSocial('facebook')">
+                        <i class="fa-brands fa-facebook"></i> Facebook
+                    </button>
+                    <button class="cat-btn" style="padding:10px 20px; flex:1;" onclick="shareToSocial('twitter')">
+                        <i class="fa-brands fa-x-twitter"></i> Twitter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/js/app.js"></script>
+</body>
+</html>

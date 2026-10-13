@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bộ thẻ của tôi | Flashcard Language</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/account.css">
+</head>
+<body>
+    <header>
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-layer-group"></i>
+            Flashcard Language
+        </a>
+        <div class="header-actions">
+            <button class="btn-login">
+                <i class="fa-solid fa-user"></i> Đăng nhập
+            </button>
+        </div>
+    </header>
+
+    <div class="account-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Workspace</h2>
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <button class="btn-sidebar-login">
+                <i class="fa-solid fa-user"></i> Đăng nhập
+            </button>
+
+            <ul class="sidebar-menu">
+                <li class="active"><a href="account.html"><i class="fa-solid fa-layer-group"></i> Bộ thẻ của tôi</a></li>
+                <li><a href="saved.html"><i class="fa-regular fa-bookmark"></i> Đã lưu</a></li>
+                <li><a href="#" id="openCategoryModalBtn"><i class="fa-solid fa-folder-open"></i> Quản lý danh mục</a></li>
+                <li><a href="#" id="openManageTagsModalBtn"><i class="fa-solid fa-tags"></i> Quản lý Tag</a></li>
+                <li><a href="home.html"><i class="fa-solid fa-earth-asia"></i> Khám phá công khai</a></li>
+                <li><a href="#" id="openSettingsModalBtn"><i class="fa-solid fa-gear"></i> Cài đặt / Hồ sơ</a></li>
+            </ul>
+        </aside>
+
+        <main class="dashboard-content">
+            <div class="dashboard-top">
+                <div class="dashboard-header">
+                    <h2>Bộ thẻ của tôi</h2>
+                    <button class="btn-create-set-top" onclick="window.location.href='create-set.html'">
+                        <i class="fa-solid fa-plus"></i> Tạo bộ thẻ
+                    </button>
+                </div>
+
+                <div class="dashboard-controls">
+                    <div class="search-box-dashboard">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Tìm kiếm trong bộ thẻ của bạn...">
+                    </div>
+
+                    <div class="filter-dropdown-container">
+                        <button class="btn-filter" id="filterBtn">
+                            <i class="fa-solid fa-filter" style="color: var(--primary-blue);"></i> Filter
+                        </button>
+                        <div class="filter-dropdown-menu" id="filterMenu">
+                            <div class="filter-menu-header">Filter by categories</div>
+                            <ul class="filter-menu-list">
+                                <li>
+                                    <label class="filter-item">
+                                        <span class="filter-dot" style="background-color:#22c55e;"></span>
+                                        Vocabulary
+                                        <input type="checkbox">
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-item">
+                                        <span class="filter-dot" style="background-color:#0ea5e9;"></span>
+                                        English
+                                        <input type="checkbox">
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="filter-menu-footer">
+                                <button class="btn-clear-filter">Clear</button>
+                                <a href="#" class="manage-cats-link">Manage categories</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-dropdown-container">
+                        <button class="btn-sort" id="sortBtn">
+                            <i class="fa-solid fa-arrow-down-z-a" style="color: var(--primary-blue);"></i> Sort
+                            <span class="sort-badge">1</span>
+                        </button>
+                        <div class="filter-dropdown-menu" id="sortMenu">
+                            <div class="filter-menu-header">Sort sets</div>
+                            <ul class="sort-menu-list">
+                                <li class="sort-item selected"><i class="fa-solid fa-check"></i> Theo bảng chữ cái</li>
+                                <li class="sort-item">Mới nhất trước</li>
+                                <li class="sort-item">Cũ nhất trước</li>
+                                <li class="sort-item">Sử dụng gần đây</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="set-card" style="cursor:pointer;" onclick="window.location.href='detailFlashcard.html'">
+                    <div class="set-card-header">
+                        <div>
+                            <h3>Bộ không có tiêu đề</h3>
+                        </div>
+                        <div style="display:flex;gap:6px;align-items:center;">
+                            <span class="set-status-badge private">Riêng tư</span>
+                            <button class="btn-delete-set" onclick="event.stopPropagation(); confirmDelete(this)" title="Xóa"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <p class="set-card-desc">Không có mô tả</p>
+                    <div class="progress-section">
+                        <div class="progress-labels"><span>Đã thuộc</span><span>0/0</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width:0%;"></div></div>
+                    </div>
+                    <div class="set-card-footer">
+                        <div><i class="fa-solid fa-clone"></i> 0 thẻ</div>
+                        <div style="display:flex;gap:8px;">
+                            <button class="cat-btn" onclick="event.stopPropagation(); window.location.href='create-set.html'" style="padding:5px 12px;font-size:0.8rem;"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            <button class="blue-btn" onclick="event.stopPropagation(); window.location.href='study.html'" style="padding:5px 12px;font-size:0.8rem;border-radius:20px;width:auto;"><i class="fa-solid fa-graduation-cap"></i> Học</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="set-card" style="cursor:pointer;" onclick="window.location.href='detailFlashcard.html'">
+                    <div class="set-card-header">
+                        <div>
+                            <span class="tag-english">English</span>
+                            <h3>code</h3>
+                        </div>
+                        <div style="display:flex;gap:6px;align-items:center;">
+                            <span class="set-status-badge pending">Chờ duyệt</span>
+                            <button class="btn-delete-set" onclick="event.stopPropagation(); confirmDelete(this)" title="Xóa"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <p class="set-card-desc">Không có mô tả</p>
+                    <div class="progress-section">
+                        <div class="progress-labels"><span>Đã thuộc</span><span>0/0</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width:0%;"></div></div>
+                    </div>
+                    <div class="set-card-footer">
+                        <div><i class="fa-solid fa-clone"></i> 0 thẻ</div>
+                        <div style="display:flex;gap:8px;">
+                            <button class="cat-btn" onclick="event.stopPropagation(); window.location.href='create-set.html'" style="padding:5px 12px;font-size:0.8rem;"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            <button class="blue-btn" onclick="event.stopPropagation(); window.location.href='study.html'" style="padding:5px 12px;font-size:0.8rem;border-radius:20px;width:auto;"><i class="fa-solid fa-graduation-cap"></i> Học</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="set-card" style="cursor:pointer;" onclick="window.location.href='detailFlashcard.html'">
+                    <div class="set-card-header">
+                        <div>
+                            <span class="tag-english">English</span>
+                            <h3>dang</h3>
+                        </div>
+                        <div style="display:flex;gap:6px;align-items:center;">
+                            <span class="set-status-badge approved">Công khai</span>
+                            <button class="btn-delete-set" onclick="event.stopPropagation(); confirmDelete(this)" title="Xóa"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <p class="set-card-desc">Không có mô tả</p>
+                    <div class="progress-section">
+                        <div class="progress-labels"><span>Đã thuộc</span><span>0/1</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width:0%;"></div></div>
+                    </div>
+                    <div class="set-card-footer">
+                        <div><i class="fa-solid fa-clone"></i> 1 thẻ</div>
+                        <div style="display:flex;gap:8px;">
+                            <button class="cat-btn" onclick="event.stopPropagation(); window.location.href='create-set.html'" style="padding:5px 12px;font-size:0.8rem;"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            <button class="blue-btn" onclick="event.stopPropagation(); window.location.href='study.html'" style="padding:5px 12px;font-size:0.8rem;border-radius:20px;width:auto;"><i class="fa-solid fa-graduation-cap"></i> Học</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="set-card" style="cursor:pointer;" onclick="window.location.href='detailFlashcard.html'">
+                    <div class="set-card-header">
+                        <h3>ff</h3>
+                        <div style="display:flex;gap:6px;align-items:center;">
+                            <span class="set-status-badge rejected">Bị từ chối</span>
+                            <button class="btn-delete-set" onclick="event.stopPropagation(); confirmDelete(this)" title="Xóa"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <p class="set-card-desc">Không có mô tả</p>
+                    <div class="progress-section">
+                        <div class="progress-labels"><span>Đã thuộc</span><span>0/0</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width:0%;"></div></div>
+                    </div>
+                    <div class="set-card-footer">
+                        <div><i class="fa-solid fa-clone"></i> 0 thẻ</div>
+                        <div style="display:flex;gap:8px;">
+                            <button class="cat-btn" onclick="event.stopPropagation(); window.location.href='create-set.html'" style="padding:5px 12px;font-size:0.8rem;"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            <button class="blue-btn" onclick="event.stopPropagation(); window.location.href='study.html'" style="padding:5px 12px;font-size:0.8rem;border-radius:20px;width:auto;"><i class="fa-solid fa-graduation-cap"></i> Học</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="floating-action-bar">
+        <div class="fab-left">
+            <button class="btn-study-all">
+                <i class="fa-solid fa-graduation-cap"></i> Study All <span class="count">1</span>
+            </button>
+            <button class="btn-review">
+                <i class="fa-solid fa-rotate-right"></i> Ôn lại chưa thuộc <span class="count blue-count">1</span>
+            </button>
+        </div>
+        <button class="btn-create-set" onclick="window.location.href='create-set.html'">
+            <i class="fa-solid fa-plus"></i> Tạo bộ thẻ
+        </button>
+    </div>
+
+    <div id="categoryModal" class="modal">
+        <div class="modal-content" style="max-width:600px; padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color); padding-bottom:15px; margin-bottom:20px;">
+                <h2 style="font-size:1.3rem;">Danh mục</h2>
+                <button class="close-btn" id="closeCategoryModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div style="display:flex; gap:10px; margin-bottom:20px;">
+                    <input type="text" class="form-input" placeholder="Tìm danh mục" style="flex-grow:1; border-radius:20px; padding:10px 15px;">
+                    <button class="blue-btn" id="openCreateCategoryModalBtn" style="border-radius:20px; padding:10px 20px; width:auto;">Thêm</button>
+                </div>
+                <div class="category-list" style="display:flex; flex-direction:column; gap:12px;">
+                    <div class="category-item">
+                        <div class="cat-left"><span class="filter-dot" style="background-color:#22c55e;"></span><span class="cat-name">Vocabulary</span></div>
+                        <div class="cat-actions">
+                            <button class="cat-btn btn-open-select-set">Chọn bộ</button>
+                            <button class="cat-btn btn-open-edit-category">Sửa</button>
+                            <button class="cat-btn delete">Xóa</button>
+                        </div>
+                    </div>
+                    <div class="category-item">
+                        <div class="cat-left"><span class="filter-dot" style="background-color:#0ea5e9;"></span><span class="cat-name">English</span></div>
+                        <div class="cat-actions">
+                            <button class="cat-btn btn-open-select-set">Chọn bộ</button>
+                            <button class="cat-btn btn-open-edit-category">Sửa</button>
+                            <button class="cat-btn delete">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="createCategoryModal" class="modal" style="z-index:1001;">
+        <div class="modal-content" style="max-width:450px; padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color); padding-bottom:15px; margin-bottom:20px;">
+                <h2 style="font-size:1.3rem;">Tạo danh mục</h2>
+                <button class="close-btn" id="closeCreateCategoryModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <label style="font-size:0.9rem;font-weight:500;">Tên</label>
+                <input type="text" class="form-input" placeholder="vd. Động từ" style="border-radius:8px;">
+                <label style="font-size:0.9rem;font-weight:500;">Màu</label>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <span class="color-circle" style="background-color:#ef4444;"></span>
+                    <span class="color-circle" style="background-color:#f97316;"></span>
+                    <span class="color-circle" style="background-color:#22c55e;"></span>
+                    <span class="color-circle" style="background-color:#3b82f6;"></span>
+                    <span class="color-circle" style="background-color:#a855f7;"></span>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button class="cat-btn" id="cancelCreateCategoryBtn" style="padding:10px 20px;">Hủy</button>
+                    <button class="blue-btn" style="border-radius:20px; padding:10px 20px; width:auto;">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="selectSetModal" class="modal" style="z-index:1002;">
+        <div class="modal-content" style="max-width:520px; padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color); padding-bottom:15px; margin-bottom:20px;">
+                <h2 style="font-size:1.3rem;">Chọn bộ thẻ</h2>
+                <button class="close-btn" id="closeSelectSetModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <label class="select-set-item"><input class="select-set-checkbox" type="checkbox"> Tiếng Anh - Công nghệ</label>
+                <label class="select-set-item"><input class="select-set-checkbox" type="checkbox"> Tiếng Đức - Cụm từ thời gian</label>
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button class="cat-btn" id="cancelSelectSetBtn" style="padding:10px 20px;">Hủy</button>
+                    <button class="blue-btn" style="border-radius:20px; padding:10px 20px; width:auto;">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editCategoryModal" class="modal" style="z-index:1001;">
+        <div class="modal-content" style="max-width:450px; padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color); padding-bottom:15px; margin-bottom:20px;">
+                <h2 style="font-size:1.3rem;">Sửa danh mục</h2>
+                <button class="close-btn" id="closeEditCategoryModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <label style="font-size:0.9rem;font-weight:500;">Tên</label>
+                <input type="text" class="form-input" value="Vocabulary" style="border-radius:8px;">
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button class="cat-btn" id="cancelEditCategoryBtn" style="padding:10px 20px;">Hủy</button>
+                    <button class="blue-btn" style="border-radius:20px; padding:10px 20px; width:auto;">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="manageTagsModal" class="modal">
+        <div class="modal-content" style="max-width:650px; padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color); padding-bottom:15px; margin-bottom:20px;">
+                <div>
+                    <h2 style="font-size:1.3rem; margin-bottom:5px;">Manage Tags</h2>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">Tạo, đổi tên hoặc xóa thẻ phân loại.</p>
+                </div>
+                <button class="close-btn" id="closeManageTagsModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div style="display:flex; gap:15px; margin-bottom:25px; align-items:center;">
+                    <input type="text" class="form-input" id="newTagNameInput" placeholder="Tag name" style="flex-grow:1; border-radius:8px;">
+                    <div style="width:32px; height:32px; flex-shrink:0; background-color:#6366f1; border-radius:4px;"></div>
+                    <button class="blue-btn" id="btnAddTag" style="border-radius:20px; padding:10px 20px; width:auto;"><i class="fa-solid fa-plus"></i> Add Tag</button>
+                </div>
+                <div id="tagList" style="display:flex; flex-direction:column; gap:12px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="modal">
+        <div class="modal-content" style="max-width:650px; padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color); padding-bottom:15px; margin-bottom:20px;">
+                <div>
+                    <h2 style="font-size:1.3rem; margin-bottom:5px;">Cài đặt</h2>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">Quản lý thông tin tài khoản và tùy chọn học tập.</p>
+                </div>
+                <button class="close-btn" id="closeSettingsModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <h3 style="font-size:1.1rem; margin-bottom:15px;">Thông tin cá nhân</h3>
+                <div style="display:flex; gap:15px; margin-bottom:25px; align-items:flex-start;">
+                    <div style="flex:1;">
+                        <label style="display:block;font-size:0.9rem;font-weight:500;margin-bottom:8px;">Tên hiển thị</label>
+                        <input type="text" class="form-input" value="Người dùng" style="border-radius:8px; margin-bottom:15px;">
+                        <label style="display:block;font-size:0.9rem;font-weight:500;margin-bottom:8px;">Email</label>
+                        <input type="email" class="form-input" value="user@example.com" style="border-radius:8px;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+                        <div style="width:100px; height:100px; border-radius:50%; background-color:var(--primary-blue); color:white; display:flex; align-items:center; justify-content:center; font-size:2.5rem;">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <button class="cat-btn"><i class="fa-solid fa-camera"></i> Đổi ảnh</button>
+                    </div>
+                </div>
+                <h3 style="font-size:1.1rem; margin-bottom:15px; border-top:1px solid var(--border-color); padding-top:20px;">
+                    <i class="fa-solid fa-lock" style="color:var(--primary-blue);"></i> Đổi mật khẩu
+                </h3>
+                <input type="password" class="form-input" placeholder="Mật khẩu hiện tại" style="border-radius:8px; margin-bottom:12px;">
+                <input type="password" class="form-input" placeholder="Mật khẩu mới" style="border-radius:8px; margin-bottom:12px;">
+                <input type="password" class="form-input" placeholder="Xác nhận mật khẩu mới" style="border-radius:8px;">
+                <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid var(--border-color); padding-top:20px;">
+                    <button class="cat-btn" id="cancelSettingsBtn" style="padding:10px 20px;">Hủy</button>
+                    <button class="blue-btn" style="border-radius:20px; padding:10px 20px; width:auto;">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/js/app.js"></script>
+</body>
+</html>

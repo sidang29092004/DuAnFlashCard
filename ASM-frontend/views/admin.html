@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản trị | Flashcard Language</title>
+    <meta name="description" content="Trang quản trị hệ thống Flashcard Language.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/admin.css">
+</head>
+<body>
+    <header>
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-layer-group"></i>
+            Flashcard Language
+        </a>
+        <div class="header-actions">
+            <span class="admin-badge"><i class="fa-solid fa-shield-halved"></i> Admin</span>
+            <button class="btn-login" onclick="window.location.href='home.html'">
+                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+            </button>
+        </div>
+    </header>
+
+    <div class="account-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Quản trị</h2>
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="active" onclick="showSection('stats', this)">
+                    <a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                </li>
+                <li onclick="showSection('flashcards', this)">
+                    <a href="#"><i class="fa-solid fa-clone"></i> Flashcard công khai <span class="badge-new" id="pendingBadge">3</span></a>
+                </li>
+                <li onclick="showSection('users', this)">
+                    <a href="#"><i class="fa-solid fa-users"></i> Quản lý người dùng</a>
+                </li>
+                <li onclick="showSection('topics', this)">
+                    <a href="#"><i class="fa-solid fa-tags"></i> Quản lý chủ đề</a>
+                </li>
+                <li onclick="showSection('filters', this)">
+                    <a href="#"><i class="fa-solid fa-filter"></i> Ngôn ngữ & Cấp độ</a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="dashboard-content">
+            <section id="section-stats" class="admin-section">
+                <div class="dashboard-header">
+                    <h2>Dashboard</h2>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">1,240</div>
+                            <div class="stat-label">Tổng người dùng</div>
+                        </div>
+                        <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> +12%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fa-solid fa-clone"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">4,875</div>
+                            <div class="stat-label">Tổng bộ thẻ</div>
+                        </div>
+                        <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> +8%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple"><i class="fa-solid fa-earth-asia"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">1,203</div>
+                            <div class="stat-label">Bộ thẻ công khai</div>
+                        </div>
+                        <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i> +5%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><i class="fa-solid fa-clock"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Chờ duyệt</div>
+                        </div>
+                        <div class="stat-trend" style="color:#f97316;"><i class="fa-solid fa-triangle-exclamation"></i> Cần duyệt</div>
+                    </div>
+                </div>
+
+                <div class="admin-table-box">
+                    <div class="table-header">
+                        <h3>Hoạt động gần đây</h3>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Người dùng</th>
+                                <th>Hành động</th>
+                                <th>Thời gian</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="user-cell"><div class="avatar">A</div> admin@example.com</div></td>
+                                <td>Gửi bộ thẻ "Tiếng Anh B1" chờ duyệt</td>
+                                <td>5 phút trước</td>
+                                <td><span class="status-badge warning">Chờ duyệt</span></td>
+                            </tr>
+                            <tr>
+                                <td><div class="user-cell"><div class="avatar">N</div> nguyen@gmail.com</div></td>
+                                <td>Đăng ký tài khoản mới</td>
+                                <td>20 phút trước</td>
+                                <td><span class="status-badge success">Thành công</span></td>
+                            </tr>
+                            <tr>
+                                <td><div class="user-cell"><div class="avatar">T</div> tran@gmail.com</div></td>
+                                <td>Bộ thẻ "Toán học" được duyệt</td>
+                                <td>1 giờ trước</td>
+                                <td><span class="status-badge success">Đã duyệt</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="section-flashcards" class="admin-section hidden">
+                <div class="dashboard-header">
+                    <h2>Quản lý Flashcard công khai</h2>
+                </div>
+
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="switchTab('pending', this)">
+                        <i class="fa-solid fa-clock"></i> Chờ duyệt <span class="badge-new" style="position:relative;top:0;right:0;margin-left:6px;">3</span>
+                    </button>
+                    <button class="admin-tab" onclick="switchTab('approved', this)">
+                        <i class="fa-solid fa-circle-check"></i> Đã duyệt
+                    </button>
+                    <button class="admin-tab" onclick="switchTab('rejected', this)">
+                        <i class="fa-solid fa-circle-xmark"></i> Từ chối
+                    </button>
+                    <button class="admin-tab" onclick="switchTab('hidden', this)">
+                        <i class="fa-solid fa-eye-slash"></i> Đã ẩn
+                    </button>
+                </div>
+
+                <div class="dashboard-controls" style="margin-bottom:20px">
+                    <div class="search-box-dashboard">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Tìm kiếm bộ thẻ...">
+                    </div>
+                    <button class="btn-filter"><i class="fa-solid fa-filter"></i> Lọc</button>
+                </div>
+
+                <div id="tab-pending" class="admin-tab-content">
+                    <div class="admin-table-box">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên bộ thẻ</th>
+                                    <th>Tác giả</th>
+                                    <th>Số thẻ</th>
+                                    <th>Chủ đề</th>
+                                    <th>Cấp độ</th>
+                                    <th>Ngày gửi</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><strong>Tiếng Anh B1</strong></td>
+                                    <td>admin@example.com</td>
+                                    <td>35</td>
+                                    <td>Ngôn ngữ</td>
+                                    <td><span class="badge trung-cap">Trung Cấp</span></td>
+                                    <td>29/09/2026</td>
+                                    <td class="action-btns">
+                                        <button class="btn-action edit" title="Xem chi tiết" onclick="viewDetail()"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn-action approve" title="Duyệt" onclick="approveSet(this)"><i class="fa-solid fa-check"></i></button>
+                                        <button class="btn-action delete" title="Từ chối" onclick="rejectSet(this)"><i class="fa-solid fa-xmark"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><strong>Vật lý lượng tử cơ bản</strong></td>
+                                    <td>nguyen@gmail.com</td>
+                                    <td>28</td>
+                                    <td>Khoa học</td>
+                                    <td><span class="badge nang-cao">Nâng Cao</span></td>
+                                    <td>28/09/2026</td>
+                                    <td class="action-btns">
+                                        <button class="btn-action edit" title="Xem chi tiết" onclick="viewDetail()"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn-action approve" title="Duyệt" onclick="approveSet(this)"><i class="fa-solid fa-check"></i></button>
+                                        <button class="btn-action delete" title="Từ chối" onclick="rejectSet(this)"><i class="fa-solid fa-xmark"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-approved" class="admin-tab-content hidden">
+                    <div class="admin-table-box">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên bộ thẻ</th>
+                                    <th>Tác giả</th>
+                                    <th>Số thẻ</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Tiếng Đức - Cụm từ thời gian</td>
+                                    <td>nguyen@gmail.com</td>
+                                    <td>46</td>
+                                    <td><span class="status-badge success">Công khai</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-action edit" title="Xem chi tiết" onclick="viewDetail()"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn-action" title="Ẩn bộ thẻ" onclick="hideSet(this)" style="background:#f1f5f9;color:#64748b;"><i class="fa-solid fa-eye-slash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-rejected" class="admin-tab-content hidden">
+                    <div class="admin-table-box">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên bộ thẻ</th>
+                                    <th>Tác giả</th>
+                                    <th>Lý do từ chối</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Lịch sử Việt Nam thế kỷ 20</td>
+                                    <td>le@gmail.com</td>
+                                    <td>Nội dung chưa đủ chính xác</td>
+                                    <td class="action-btns">
+                                        <button class="btn-action edit" title="Xem chi tiết" onclick="viewDetail()"><i class="fa-solid fa-eye"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-hidden" class="admin-tab-content hidden">
+                    <div class="admin-table-box">
+                        <table class="admin-table">
+                            <tbody>
+                                <tr>
+                                    <td style="text-align:center;color:var(--text-muted);padding:30px;">
+                                        <i class="fa-solid fa-eye-slash" style="font-size:2rem;margin-bottom:10px;display:block;"></i>
+                                        Chưa có bộ thẻ nào bị ẩn.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-users" class="admin-section hidden">
+                <div class="dashboard-header">
+                    <h2>Quản lý người dùng</h2>
+                </div>
+                <div class="admin-table-box">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Người dùng</th>
+                                <th>Email</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><div class="user-cell"><div class="avatar">N</div> Nguyễn An</div></td>
+                                <td>nguyen@gmail.com</td>
+                                <td><span class="status-badge success">Hoạt động</span></td>
+                                <td class="action-btns">
+                                    <button class="btn-action edit" title="Xem thông tin" onclick="viewUserDetail()"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn-action delete" title="Khóa tài khoản" onclick="toggleUserStatus(this)"><i class="fa-solid fa-ban"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><div class="user-cell"><div class="avatar">L</div> Lê Bình</div></td>
+                                <td>le@gmail.com</td>
+                                <td><span class="status-badge danger">Bị khóa</span></td>
+                                <td class="action-btns">
+                                    <button class="btn-action edit" title="Xem thông tin" onclick="viewUserDetail()"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn-action approve" title="Mở khóa" onclick="toggleUserStatus(this)"><i class="fa-solid fa-unlock"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="section-topics" class="admin-section hidden">
+                <div class="dashboard-header">
+                    <h2>Quản lý chủ đề</h2>
+                    <button class="btn-create-set-top" onclick="openAddTopicModal()">
+                        <i class="fa-solid fa-plus"></i> Thêm chủ đề
+                    </button>
+                </div>
+                <div class="admin-table-box">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Chủ đề</th>
+                                <th>Số bộ thẻ</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topicTableBody">
+                            <tr>
+                                <td>1</td>
+                                <td>Ngôn ngữ</td>
+                                <td>540</td>
+                                <td><span class="status-badge success">Hiển thị</span></td>
+                                <td class="action-btns">
+                                    <button class="btn-action edit" onclick="editTopic(this, 'Ngôn ngữ')" title="Sửa"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-action" onclick="toggleTopicStatus(this)" title="Ẩn" style="background:#fef9c3;color:#ca8a04;"><i class="fa-solid fa-eye-slash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Công nghệ</td>
+                                <td>210</td>
+                                <td><span class="status-badge success">Hiển thị</span></td>
+                                <td class="action-btns">
+                                    <button class="btn-action edit" onclick="editTopic(this, 'Công nghệ')" title="Sửa"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-action" onclick="toggleTopicStatus(this)" title="Ẩn" style="background:#fef9c3;color:#ca8a04;"><i class="fa-solid fa-eye-slash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Lịch sử</td>
+                                <td>88</td>
+                                <td><span class="status-badge danger">Đã ẩn</span></td>
+                                <td class="action-btns">
+                                    <button class="btn-action edit" onclick="editTopic(this, 'Lịch sử')" title="Sửa"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-action approve" onclick="toggleTopicStatus(this)" title="Hiện lại"><i class="fa-solid fa-eye"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="section-filters" class="admin-section hidden">
+                <div class="dashboard-header">
+                    <h2>Ngôn ngữ & Cấp độ</h2>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                    <div class="admin-table-box">
+                        <div class="table-header">
+                            <h3>Cấp độ</h3>
+                            <button class="btn-create-set-top" style="padding:6px 12px;font-size:0.85rem;" onclick="openAddLevelModal()">
+                                <i class="fa-solid fa-plus"></i> Thêm
+                            </button>
+                        </div>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cấp độ</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Cơ bản</td>
+                                    <td><span class="status-badge success">Hiển thị</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-action" title="Ẩn" style="background:#fef9c3;color:#ca8a04;" onclick="toggleHide(this)"><i class="fa-solid fa-eye-slash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Trung cấp</td>
+                                    <td><span class="status-badge success">Hiển thị</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-action" title="Ẩn" style="background:#fef9c3;color:#ca8a04;" onclick="toggleHide(this)"><i class="fa-solid fa-eye-slash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Nâng cao</td>
+                                    <td><span class="status-badge danger">Đã ẩn</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-action approve" title="Hiện lại" onclick="toggleHide(this)"><i class="fa-solid fa-eye"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="admin-table-box">
+                        <div class="table-header">
+                            <h3>Ngôn ngữ</h3>
+                            <button class="btn-create-set-top" style="padding:6px 12px;font-size:0.85rem;" onclick="openAddLangModal()">
+                                <i class="fa-solid fa-plus"></i> Thêm
+                            </button>
+                        </div>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Ngôn ngữ</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Tiếng Việt</td>
+                                    <td><span class="status-badge success">Hiển thị</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-action" title="Ẩn" style="background:#fef9c3;color:#ca8a04;" onclick="toggleHide(this)"><i class="fa-solid fa-eye-slash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>English</td>
+                                    <td><span class="status-badge success">Hiển thị</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-action" title="Ẩn" style="background:#fef9c3;color:#ca8a04;" onclick="toggleHide(this)"><i class="fa-solid fa-eye-slash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="flashcardDetailModal" class="modal">
+        <div class="modal-content" style="max-width:700px;padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color);padding-bottom:15px;margin-bottom:20px;">
+                <h2 style="font-size:1.2rem;">Chi tiết bộ thẻ</h2>
+                <button class="close-btn" onclick="document.getElementById('flashcardDetailModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="gap:15px;">
+                <div style="background:var(--search-bg);border-radius:12px;padding:20px;">
+                    <h3 style="margin-bottom:10px;">Tiếng Anh B1</h3>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
+                        <span class="badge trung-cap">Trung Cấp</span>
+                        <span class="badge" style="background:#e0f2fe;color:#0284c7;">English</span>
+                        <span style="font-size:0.85rem;color:var(--text-muted);"><i class="fa-solid fa-clone"></i> 35 thẻ</span>
+                    </div>
+                    <p style="font-size:0.9rem;color:var(--text-muted);">Mô tả: Bộ thẻ ôn luyện tiếng Anh trình độ B1 theo khung CEFR.</p>
+                    <p style="font-size:0.85rem;color:var(--text-muted);margin-top:8px;">Tác giả: admin@example.com | Ngày gửi: 29/09/2026</p>
+                </div>
+                <div style="max-height:250px;overflow-y:auto;border:1px solid var(--border-color);border-radius:8px;">
+                    <div style="padding:15px;border-bottom:1px solid var(--border-color);display:grid;grid-template-columns:1fr 1fr;gap:20px;background:var(--search-bg);font-weight:700;font-size:0.8rem;color:var(--text-muted);">
+                        <span>Mặt trước</span><span>Mặt sau</span>
+                    </div>
+                    <div style="padding:12px 15px;border-bottom:1px solid var(--border-color);display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                        <span>Vocabulary</span><span style="color:var(--text-muted);">Từ vựng</span>
+                    </div>
+                    <div style="padding:12px 15px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                        <span>Grammar</span><span style="color:var(--text-muted);">Ngữ pháp</span>
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;justify-content:flex-end;border-top:1px solid var(--border-color);padding-top:15px;">
+                    <button class="cat-btn" style="padding:10px 20px;color:#ef4444;border-color:#fca5a5;background:#fef2f2;" onclick="rejectFromModal()">
+                        <i class="fa-solid fa-xmark"></i> Từ chối
+                    </button>
+                    <button class="blue-btn" style="border-radius:20px;padding:10px 24px;width:auto;font-weight:700;" onclick="approveFromModal()">
+                        <i class="fa-solid fa-check"></i> Duyệt công khai
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="addTopicModal" class="modal">
+        <div class="modal-content" style="max-width:420px;padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color);padding-bottom:15px;margin-bottom:20px;">
+                <h2 style="font-size:1.2rem;" id="topicModalTitle">Thêm chủ đề</h2>
+                <button class="close-btn" onclick="document.getElementById('addTopicModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="gap:15px;">
+                <div>
+                    <label style="display:block;font-size:0.9rem;font-weight:600;margin-bottom:8px;">Tên chủ đề</label>
+                    <input type="text" id="topicNameInput" class="form-input" placeholder="vd. Y học" style="border-radius:8px;">
+                </div>
+                <div style="display:flex;justify-content:flex-end;gap:10px;">
+                    <button class="cat-btn" style="padding:10px 20px;" onclick="document.getElementById('addTopicModal').style.display='none'">Hủy</button>
+                    <button class="blue-btn" style="border-radius:20px;padding:10px 20px;width:auto;" onclick="saveTopic()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rejectModal" class="modal">
+        <div class="modal-content" style="max-width:420px;padding:25px;">
+            <div class="modal-header" style="border-bottom:1px solid var(--border-color);padding-bottom:15px;margin-bottom:20px;">
+                <h2 style="font-size:1.2rem;">Từ chối bộ thẻ</h2>
+                <button class="close-btn" onclick="document.getElementById('rejectModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="gap:15px;">
+                <div>
+                    <label style="display:block;font-size:0.9rem;font-weight:600;margin-bottom:8px;">Lý do từ chối</label>
+                    <textarea class="form-input" id="rejectReason" placeholder="Nhập lý do từ chối để thông báo cho người dùng..." rows="4" style="border-radius:8px;resize:vertical;"></textarea>
+                </div>
+                <div style="display:flex;justify-content:flex-end;gap:10px;">
+                    <button class="cat-btn" style="padding:10px 20px;" onclick="document.getElementById('rejectModal').style.display='none'">Hủy</button>
+                    <button class="blue-btn" style="border-radius:20px;padding:10px 20px;width:auto;background:#ef4444;" onclick="confirmReject()">
+                        <i class="fa-solid fa-xmark"></i> Xác nhận từ chối
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/js/app.js"></script>
+</body>
+</html>

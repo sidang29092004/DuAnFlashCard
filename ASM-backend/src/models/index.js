@@ -1,0 +1,10 @@
+require("./User");
+require("./Language");
+require("./Level");
+require("./Topic");
+require("./Tag");
+require("./Flashcard");
+require("./Card");
+require("./SavedFlashcard");
+require("./StudyProgress");
+require("./StudyHistory");

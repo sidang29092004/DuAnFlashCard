@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Language - Khám phá bộ thẻ học</title>
+    <meta name="description" content="Tìm kiếm và học các bộ Flashcard công khai theo chủ đề, ngôn ngữ và cấp độ.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/home.css">
+</head>
+<body>
+    <header>
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-layer-group"></i>
+            Flashcard Language
+        </a>
+        <div class="header-actions">
+            <div id="headerGuest">
+                <button class="btn-login" id="openLoginBtn">
+                    <i class="fa-solid fa-user"></i> Đăng nhập
+                </button>
+            </div>
+            <div id="headerUser" style="display:none; align-items:center; gap:12px;">
+                <a href="account.html" class="header-nav-link" data-user-only><i class="fa-solid fa-layer-group"></i> Bộ thẻ của tôi</a>
+                <a href="saved.html" class="header-nav-link" data-user-only><i class="fa-regular fa-bookmark"></i> Đã lưu</a>
+                <a href="admin.html" class="header-nav-link" data-admin-only style="display:none;"><i class="fa-solid fa-shield-halved"></i> Quản trị</a>
+                <div class="user-menu-wrapper">
+                    <button class="user-avatar-btn" id="userMenuBtn">
+                        <div class="avatar" style="width:34px;height:34px;font-size:0.9rem;">U</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size:0.75rem;color:var(--text-muted);"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="account.html" data-user-only><i class="fa-solid fa-layer-group"></i> Bộ thẻ của tôi</a>
+                        <a href="saved.html" data-user-only><i class="fa-regular fa-bookmark"></i> Đã lưu</a>
+                        <a href="admin.html" data-admin-only style="display:none;"><i class="fa-solid fa-shield-halved"></i> Quản trị</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="search-section">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm bộ thẻ công khai...">
+            </div>
+            <div class="filters">
+                <select class="filter-select" id="filterTopic">
+                    <option value="">Tất cả chủ đề</option>
+                    <option value="ngon-ngu">Ngôn ngữ</option>
+                    <option value="khoa-hoc">Khoa học</option>
+                    <option value="cong-nghe">Công nghệ</option>
+                    <option value="lich-su">Lịch sử</option>
+                    <option value="toan-hoc">Toán học</option>
+                </select>
+                <select class="filter-select" id="filterLang">
+                    <option value="">Tất cả ngôn ngữ</option>
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="fr">Français</option>
+                    <option value="ja">日本語</option>
+                </select>
+                <select class="filter-select" id="filterLevel">
+                    <option value="">Tất cả cấp độ</option>
+                    <option value="co-ban">Cơ bản</option>
+                    <option value="trung-cap">Trung cấp</option>
+                    <option value="nang-cao">Nâng cao</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- PHAN DA SUA: cardsGrid duoc render lai tu src/app.ts bang interface/class SanPhamFlashcard -->
+        <section class="cards-grid" id="cardsGrid">
+            <div class="card" onclick="window.location.href='detailFlashcard.html'">
+                <div class="card-header">
+                    <h3 class="card-title">Tiếng Đức - Cụm từ chỉ thời gian</h3>
+                    <span class="badge trung-cap">Trung Cấp</span>
+                </div>
+                <div class="card-divider"></div>
+                <p class="card-desc">Học các cụm từ và biểu thức chỉ thời gian trong tiếng Đức, từ đơn giản đến phức tạp.</p>
+                <div class="card-footer">
+                    <div class="card-footer-info">
+                        <div class="footer-item"><i class="fa-regular fa-clone"></i> 46 thẻ</div>
+                        <div class="footer-item"><i class="fa-solid fa-language"></i> Deutsch → Tiếng Việt</div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <button class="btn-save-card cat-btn" onclick="event.stopPropagation(); toggleSave(this)" title="Lưu bộ thẻ">
+                            <i class="fa-regular fa-bookmark"></i> Lưu
+                        </button>
+                        <button class="blue-btn btn-detail-card" onclick="event.stopPropagation(); window.location.href='detailFlashcard.html'">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" onclick="window.location.href='detailFlashcard.html'">
+                <div class="card-header">
+                    <h3 class="card-title">Công nghệ trong Chuỗi cung ứng</h3>
+                    <span class="badge nang-cao">Nâng Cao</span>
+                </div>
+                <div class="card-divider"></div>
+                <p class="card-desc">Ứng dụng IoT, AI, Blockchain và phần mềm quản lý chuỗi cung ứng để nâng cao hiệu quả.</p>
+                <div class="card-footer">
+                    <div class="card-footer-info">
+                        <div class="footer-item"><i class="fa-regular fa-clone"></i> 44 thẻ</div>
+                        <div class="footer-item"><i class="fa-solid fa-language"></i> Tiếng Việt → Tiếng Việt</div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <button class="btn-save-card cat-btn" onclick="event.stopPropagation(); toggleSave(this)" title="Lưu bộ thẻ">
+                            <i class="fa-regular fa-bookmark"></i> Lưu
+                        </button>
+                        <button class="blue-btn btn-detail-card" onclick="event.stopPropagation(); window.location.href='detailFlashcard.html'">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" onclick="window.location.href='detailFlashcard.html'">
+                <div class="card-header">
+                    <h3 class="card-title">Triết học toán học</h3>
+                    <span class="badge nang-cao">Nâng Cao</span>
+                </div>
+                <div class="card-divider"></div>
+                <p class="card-desc">Nghiên cứu nền tảng triết học của toán học, bản chất các đối tượng toán học và logic toán.</p>
+                <div class="card-footer">
+                    <div class="card-footer-info">
+                        <div class="footer-item"><i class="fa-regular fa-clone"></i> 57 thẻ</div>
+                        <div class="footer-item"><i class="fa-solid fa-language"></i> Tiếng Việt → Tiếng Việt</div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <button class="btn-save-card cat-btn" onclick="event.stopPropagation(); toggleSave(this)" title="Lưu bộ thẻ">
+                            <i class="fa-regular fa-bookmark"></i> Lưu
+                        </button>
+                        <button class="blue-btn btn-detail-card" onclick="event.stopPropagation(); window.location.href='detailFlashcard.html'">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" onclick="window.location.href='detailFlashcard.html'">
+                <div class="card-header">
+                    <h3 class="card-title">Tiếng Anh - Câu gián tiếp</h3>
+                    <span class="badge nang-cao">Nâng Cao</span>
+                </div>
+                <div class="card-divider"></div>
+                <p class="card-desc">Các quy tắc chuyển đổi câu trực tiếp sang câu gián tiếp trong tiếng Anh.</p>
+                <div class="card-footer">
+                    <div class="card-footer-info">
+                        <div class="footer-item"><i class="fa-regular fa-clone"></i> 50 thẻ</div>
+                        <div class="footer-item"><i class="fa-solid fa-language"></i> English → Tiếng Việt</div>
+                    </div>
+                    <div class="card-footer-actions">
+                        <button class="btn-save-card cat-btn" onclick="event.stopPropagation(); toggleSave(this)" title="Lưu bộ thẻ">
+                            <i class="fa-regular fa-bookmark"></i> Lưu
+                        </button>
+                        <button class="blue-btn btn-detail-card" onclick="event.stopPropagation(); window.location.href='detailFlashcard.html'">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHAN DA SUA: khung phan trang duoc render bang src/app.ts -->
+        <nav class="pagination hidden" id="homePagination" aria-label="Phan trang danh sach bo the"></nav>
+    </main>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Đăng nhập</h2>
+                <button class="close-btn" id="closeLoginModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Nhập email của bạn">
+                </div>
+                <div class="input-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" class="form-input" placeholder="Nhập mật khẩu">
+                </div>
+                <button class="social-btn blue-btn btn-submit-login" id="doLoginBtn">Đăng nhập</button>
+                <div class="modal-footer-links">
+                    <a href="#" class="forgot-pwd" id="openForgotPwdBtn">Quên mật khẩu?</a>
+                    <div class="create-acc">Chưa có tài khoản? <a href="#" id="switchToRegisterBtn">Tạo tài khoản</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tạo tài khoản</h2>
+                <button class="close-btn" id="closeRegisterModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="reg-name">Họ và tên</label>
+                    <input type="text" id="reg-name" class="form-input" placeholder="Nhập họ tên của bạn">
+                </div>
+                <div class="input-group">
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" class="form-input" placeholder="Nhập email của bạn">
+                </div>
+                <div class="input-group">
+                    <label for="reg-password">Mật khẩu</label>
+                    <input type="password" id="reg-password" class="form-input" placeholder="Tạo mật khẩu tối thiểu 6 ký tự">
+                </div>
+                <button class="social-btn blue-btn btn-submit-login">Đăng ký</button>
+                <div class="modal-footer-links">
+                    <div class="create-acc">Đã có tài khoản? <a href="#" id="switchToLoginBtn">Đăng nhập</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="forgotPwdModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Quên mật khẩu</h2>
+                <button class="close-btn" id="closeForgotPwdBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:5px;">
+                    Nhập email đã đăng ký. Chúng tôi sẽ gửi link đặt lại mật khẩu cho bạn.
+                </p>
+                <div class="input-group">
+                    <label for="forgot-email">Email</label>
+                    <input type="email" id="forgot-email" class="form-input" placeholder="Nhập email của bạn">
+                </div>
+                <button class="social-btn blue-btn btn-submit-login" id="doForgotPwdBtn">
+                    Gửi link đặt lại mật khẩu
+                </button>
+                <div class="modal-footer-links">
+                    <div class="create-acc"><a href="#" id="backToLoginBtn"><i class="fa-solid fa-arrow-left"></i> Quay lại đăng nhập</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/js/app.js"></script>
+</body>
+</html>
